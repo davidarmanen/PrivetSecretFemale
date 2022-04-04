@@ -1,20 +1,15 @@
 import datetime
-import email
 import imaplib
-import mailbox
 import re
+import email
 
-EMAIL_ACCOUNT = "anastasiia9mq9izn@mail.ru"
-PASSWORD = "cg6bnDzyTB1AEwwebhzK"
-
-mail = imaplib.IMAP4_SSL('imap.mail.ru')
-mail.login(EMAIL_ACCOUNT, PASSWORD)
-mail.list()
-mail.select('inbox')
-result, data = mail.uid('search', None, "UNSEEN") # (ALL/UNSEEN)
-i = len(data[0].split())
-
-def main():
+def get_mail(email_account, password):
+    mail = imaplib.IMAP4_SSL('imap.mail.ru')
+    mail.login(email_account, password)
+    mail.list()
+    mail.select('inbox')
+    result, data = mail.uid('search', None, "UNSEEN")  # (ALL/UNSEEN)
+    i = len(data[0].split())
     for x in range(i):
         latest_email_uid = data[0].split()[x]
         result, email_data = mail.uid('fetch', latest_email_uid, '(RFC822)')
@@ -37,10 +32,9 @@ def main():
         for part in email_message.walk():
             if part.get_content_type() == "text/plain":
                 body = part.get_payload(decode=True)
-                file_name = "email" + ".txt"
-                output_file = open(file_name, 'w')
-                output_file.write("From: %s\nTo: %s\nDate: %s\nSubject: %s\n\nBody: \n\n%s" %(email_from, email_to,local_message_date, subject, body.decode('ISO-8859-1')))
-                text = "From: %s\nTo: %s\nDate: %s\nSubject: %s\n\nBody: \n\n%s" %(email_from, email_to,local_message_date, subject, body.decode('ISO-8859-1'))
+                output_file = open("email.txt", 'w', encoding="utf-8")
+                text = f"From: {email_from}\nTo: {email_to}\nDate: {local_message_date}\nSubject: {subject}\n\nBody: \n\n{body.decode('ISO-8859-1')}"
+                output_file.write(text)
                 for var in range(5):
                     try:
                         f = re.findall('https://privetsecret.com/confirm[\S]+', text)
@@ -52,5 +46,3 @@ def main():
                         continue
             else:
                 continue
-
-print(main())

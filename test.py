@@ -1,11 +1,10 @@
-import re
+import time
 
-with open("email_2.txt") as f:
-    text = f.read()
-
-f = re.findall('https://privetsecret.com/confirm[\S]+', text)
-
-f = f[0]
-f = f.replace(")", "")
-
-print(f)
+with open("log.txt", "w") as log:
+    for i in range(10):
+        try:
+            time.sleep(1)
+            print(i)
+            log.write(str(i))
+        except:
+            continue
