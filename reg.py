@@ -3,15 +3,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-url = "https://www.privetsecret.com/"
-path = "C:/Users/Admin/chromedriver/chromedriver.exe"
-email = "demchenko.1pc8k@mail.ru"
-password = "frXsh3hL0W7dhaUxap9G"
-name = "David"
-city = "Moscow"
-
-def registration(url, path, email, password, name, city):
-    driver = webdriver.Chrome(executable_path=path)
+def reg(url, path, email, password, name, city, options):
+    driver = webdriver.Chrome(executable_path=path, chrome_options=options)
     driver.get(url)
     driver.find_element(By.XPATH, "//a[@class='btn btn--small header__reg-btn']").click()
     driver.find_element(By.XPATH, "//input[@id='email']").send_keys(email)
@@ -21,7 +14,7 @@ def registration(url, path, email, password, name, city):
     time.sleep(1)
     driver.find_element(By.XPATH, "//input[@id='cityName']").send_keys(Keys.ARROW_DOWN)
     time.sleep(1)
-    driver.find_element(By.XPATH, "//span[contains(text(),'Москва')]").click()
+    driver.find_element(By.XPATH, "//span[contains(text(),'Киев')]").click()
     birthday = driver.find_element(By.XPATH, "//input[@id='js_signup-date-birth']")
     birthday.click()
     birthday.send_keys(Keys.ARROW_DOWN)
@@ -41,4 +34,3 @@ def registration(url, path, email, password, name, city):
     driver.find_element(By.CSS_SELECTOR, "#form-signup-submit").click()
     time.sleep(5)
     driver.close()
-

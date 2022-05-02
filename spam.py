@@ -2,8 +2,9 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-def spam(path, activate_url, search_url, spam_text):
-    driver = webdriver.Chrome(executable_path=path)
+def spam(path, activate_url, search_url, spam_text, options):
+    options = webdriver.ChromeOptions()
+    driver = webdriver.Chrome(executable_path=path, chrome_options=options, proxy=proxy)
     driver.get(activate_url)
     for i in range(1, 15):
         driver.get(search_url)
