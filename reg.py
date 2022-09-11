@@ -14,7 +14,7 @@ def reg(url, path, email, password, name, city, options):
     time.sleep(1)
     driver.find_element(By.XPATH, "//input[@id='cityName']").send_keys(Keys.ARROW_DOWN)
     time.sleep(1)
-    driver.find_element(By.XPATH, "//span[contains(text(),'Киев')]").click()
+    driver.find_element(By.XPATH, "//span[contains(text(),'Москва')]").click()
     birthday = driver.find_element(By.XPATH, "//input[@id='js_signup-date-birth']")
     birthday.click()
     birthday.send_keys(Keys.ARROW_DOWN)
